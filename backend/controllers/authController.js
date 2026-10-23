@@ -5,8 +5,8 @@ const generateToken = (res, userId) => {
   const token = jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "30d" });
   res.cookie("jwt", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV !== "development",
-    sameSite: "strict",
+    secure: true, // Live environment (HTTPS) ke liye zaroori
+    sameSite: "none", // Vercel se Render par token bhejne ke liye allow karta hai
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 };
@@ -47,7 +47,13 @@ export const loginUser = async (req, res) => {
 };
 
 export const logoutUser = (req, res) => {
-  res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
+  // Logout ke time bhi sameSite aur secure dena zaroori hai tabhi cookie delete hogi
+  res.cookie("jwt", "", { 
+    httpOnly: true, 
+    secure: true, 
+    sameSite: "none", 
+    expires: new Date(0) 
+  });
   res.status(200).json({ message: "Logged out successfully" });
 };
 
