@@ -1,4 +1,4 @@
-import Product from '../models/Product.js';
+import Product from '../models/product.js';
 
 // Saare products fetch karna
 export const getProducts = async (req, res) => {
