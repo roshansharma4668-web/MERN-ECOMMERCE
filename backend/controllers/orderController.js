@@ -64,3 +64,19 @@ export const updateOrderToDelivered = async (req, res) => {
     res.status(500).json({ message: 'Error updating order status' });
   }
 };
+
+// Admin: Delete an order
+export const deleteOrder = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (order) {
+      await Order.deleteOne({ _id: order._id });
+      res.status(200).json({ message: 'Order deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Order not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error while deleting order' });
+  }
+};

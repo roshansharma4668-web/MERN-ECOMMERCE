@@ -10,7 +10,7 @@ export default function OrderSuccess() {
         </div>
         <h1 className="text-3xl font-extrabold text-gray-900 mb-4">Order Successful!</h1>
         <p className="text-gray-600 mb-8 text-lg">
-          Thank you for shopping at ShopSphere. Your order has been received and is being processed securely.
+          Thank you for shopping at RoshanStore. Your order has been received and is being processed securely.
         </p>
         
         <div className="flex flex-col w-full space-y-3">

@@ -34,6 +34,19 @@ export default function AdminOrders() {
     }
   };
 
+  // NAYA: Delete Order Function
+  const deleteOrderHandler = async (orderId) => {
+    if (window.confirm('Are you sure you want to delete this order?')) {
+      try {
+        await api.delete(`/api/orders/${orderId}`);
+        toast.success('Order deleted successfully!');
+        fetchOrders(); // Refresh the list after deleting
+      } catch (err) {
+        toast.error('Failed to delete order');
+      }
+    }
+  };
+
   if (loading) return <div className="text-center mt-20 font-medium">Loading orders...</div>;
 
   return (
@@ -74,7 +87,9 @@ export default function AdminOrders() {
                       </span>
                     )}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  
+                  {/* NAYA: Update kiya gaya Action Column jisme Delete button hai */}
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex items-center space-x-3">
                     {!order.isDelivered && (
                       <button 
                         onClick={() => deliverOrderHandler(order._id)}
@@ -83,7 +98,15 @@ export default function AdminOrders() {
                         Mark Delivered
                       </button>
                     )}
+                    
+                    <button 
+                      onClick={() => deleteOrderHandler(order._id)}
+                      className="bg-red-500 text-white px-3 py-1.5 rounded hover:bg-red-600 transition-colors text-xs font-bold shadow-sm"
+                    >
+                      Delete
+                    </button>
                   </td>
+
                 </tr>
               ))}
             </tbody>

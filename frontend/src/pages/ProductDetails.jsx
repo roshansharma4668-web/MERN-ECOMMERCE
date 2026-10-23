@@ -30,7 +30,6 @@ export default function ProductDetails() {
   }, [id]);
 
   const addToCartHandler = () => {
-    // Agar user logged in nahi hai, toh use login page par bhej dein
     if (!userInfo) {
       toast.error('Please Login to add items to cart!');
       navigate('/login');
