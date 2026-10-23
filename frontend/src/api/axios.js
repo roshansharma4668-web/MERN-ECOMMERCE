@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  
-  baseURL: 'https://aapka-render-api-url.onrender.com', 
+  baseURL: 'https://mern-ecommerce-lfj4.onrender.com',
   withCredentials: true
 });
 
