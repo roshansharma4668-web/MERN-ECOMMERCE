@@ -18,11 +18,18 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('userInfo', JSON.stringify(userData));
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await api.post('/api/auth/logout'); 
+    } catch (err) {
+      console.error(err);
+    }
+    
     setUserInfo(null);
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('cartItems'); 
+    window.location.href = '/login'; 
   };
-
   return (
     <AuthContext.Provider value={{ userInfo, login, logout }}>
       {children}
