@@ -40,11 +40,12 @@ export default function Checkout() {
     setShippingAddress({ ...shippingAddress, [e.target.name]: e.target.value });
   };
 
-  const placeOrderHandler = async (e) => {
+const placeOrderHandler = async (e) => {
     e.preventDefault();
     if (cartItems.length === 0) return toast.error('Your cart is empty');
 
     setIsProcessing(true);
+    
     try {
       const orderData = {
         orderItems: cartItems,
@@ -56,20 +57,27 @@ export default function Checkout() {
         totalPrice: total,
       };
 
-      const { data } = await api.post('/api/orders/place', orderData);
+      await api.post('/api/orders/place', orderData);
       
-      toast.success('Order placed successfully!');
-      
-      // Clear cart after successful order
-      setCartItems([]);
-      localStorage.removeItem('cartItems');
-      
-      // Redirect to success page
-      setTimeout(() => navigate('/ordersuccess'), 1500);
     } catch (err) {
+
       toast.error(err.response?.data?.message || 'Failed to place order');
       setIsProcessing(false);
+      return; // 
     }
+
+    toast.success('Order placed successfully!');
+    
+    try {
+      if (typeof setCartItems === 'function') {
+        setCartItems([]);
+      }
+      localStorage.removeItem('cartItems');
+    } catch (uiError) {
+      console.error("Cart clear error:", uiError);
+    }
+    
+    setTimeout(() => navigate('/ordersuccess'), 1500);
   };
 
   return (
