@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import api from '../../api/axios';
+import api from '../api/axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { Package, ArrowLeft, Save } from 'lucide-react';
 
