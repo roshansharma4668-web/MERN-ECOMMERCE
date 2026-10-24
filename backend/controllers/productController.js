@@ -1,6 +1,5 @@
 import Product from '../models/product.js';
 
-// Saare products fetch karna
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
@@ -10,7 +9,7 @@ export const getProducts = async (req, res) => {
   }
 };
 
-// Single product fetch karna ID ke through
+
 export const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -24,7 +23,7 @@ export const getProductById = async (req, res) => {
   }
 };
 
-// Naya product database mein add karna (Sirf Admin ke liye)
+
 export const createProduct = async (req, res) => {
   try {
     const { title, price, description, category, stock, image } = req.body;
@@ -45,7 +44,6 @@ export const createProduct = async (req, res) => {
   }
 };
 
-// Admin: Product ko delete karna
 export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -58,5 +56,32 @@ export const deleteProduct = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: 'Error deleting product', error: error.message });
+  }
+};
+
+export const updateProduct = async (req, res) => {
+  try {
+    const { title, price, description, category, image, stock } = req.body;
+
+    // Database mein product dhundhna
+    const product = await Product.findById(req.params.id);
+
+    if (product) {
+      // Agar product mil gaya, toh naya data set karna
+      product.title = title || product.title;
+      product.price = price || product.price;
+      product.description = description || product.description;
+      product.category = category || product.category;
+      product.image = image || product.image;
+      product.stock = stock || product.stock;
+
+      // Updated product ko database mein save karna
+      const updatedProduct = await product.save();
+      res.json(updatedProduct);
+    } else {
+      res.status(404).json({ message: 'Product not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error while updating product' });
   }
 };
