@@ -42,7 +42,7 @@ export default function Home() {
       {/* Premium Hero & Search Section */}
       <div className="bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700 rounded-3xl p-10 sm:p-16 mb-12 shadow-2xl text-white flex flex-col items-center text-center relative overflow-hidden">
         <h1 className="text-4xl sm:text-6xl font-extrabold mb-6 tracking-tight relative z-10">
-          Welcome to ShopSphere
+          Welcome to RoshanStore
         </h1>
         <p className="text-lg sm:text-xl text-blue-100 mb-10 max-w-2xl relative z-10">
           Discover the best deals on top-quality products. Shop securely and get fast delivery!
