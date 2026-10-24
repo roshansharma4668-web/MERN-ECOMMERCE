@@ -13,7 +13,7 @@ import ProductCreate from './pages/admin/ProductCreate';
 import AdminOrders from './pages/admin/AdminOrders';
 import ProductList from './pages/admin/ProductList';
 import AdminUsers from './pages/admin/AdminUsers';
-import EditProduct from './pages/admin/EditProduct'; 
+import EditProduct from './admin/EditProduct'; 
 
 export default function App() {
   return (
